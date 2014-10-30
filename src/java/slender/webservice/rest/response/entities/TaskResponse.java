@@ -6,7 +6,6 @@
 
 package slender.webservice.rest.response.entities;
 
-import com.google.common.collect.Lists;
 import com.slender.domain.Task;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +74,6 @@ public class TaskResponse {
             responses.add(new TaskResponse(t, progress));
         }
 
-        return new GenericEntity<List<TaskResponse>>(Lists.newArrayList(responses)) {};
+        return new GenericEntity<List<TaskResponse>>(responses) {};
     }
 }

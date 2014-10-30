@@ -6,11 +6,9 @@
 
 package slender.webservice.rest.response.entities;
 
-import com.google.common.collect.Lists;
 import com.slender.domain.Project;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.core.GenericEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -50,6 +48,6 @@ public class ProjectResponse {
             responses.add(new ProjectResponse(p));
         }
         
-        return new GenericEntity<List<ProjectResponse>>(Lists.newArrayList(responses)) {};
+        return new GenericEntity<List<ProjectResponse>>(responses) {};
     }
 }
