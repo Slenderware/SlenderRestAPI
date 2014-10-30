@@ -21,7 +21,7 @@ import slender.webservice.rest.response.ResponseFactory;
  *
  * @author Heinrich
  */
-@Path("acounts")
+@Path("accounts")
 public class UserAuthenticationRestImpl implements UserAuthenticationRest {
 
     @POST
