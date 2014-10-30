@@ -6,8 +6,6 @@
 
 package slender.webservice.rest.response.entities;
 
-import com.google.common.collect.Lists;
-import com.slender.domain.Project;
 import com.slender.domain.Users;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +49,6 @@ public class UserResponse {
             responses.add(new UserResponse(e));
         }
 
-        return new GenericEntity<List<UserResponse>>(Lists.newArrayList(responses)) {};
+        return new GenericEntity<List<UserResponse>>(responses) {};
     }
 }

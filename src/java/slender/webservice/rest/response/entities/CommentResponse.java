@@ -6,10 +6,8 @@
 
 package slender.webservice.rest.response.entities;
 
-import com.google.common.collect.Lists;
 import com.slender.domain.Comment;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
@@ -62,6 +60,6 @@ public class CommentResponse {
             responses.add(new CommentResponse(c));
         }
         
-        return new GenericEntity<List<CommentResponse>>(Lists.newArrayList(responses)) {};
+        return new GenericEntity<List<CommentResponse>>(responses) {};
     }
 }
