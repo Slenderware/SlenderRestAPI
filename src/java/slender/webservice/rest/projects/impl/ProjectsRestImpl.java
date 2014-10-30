@@ -15,12 +15,12 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import slender.services.core.projects.ProjectsService;
+import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.webservice.rest.projects.ProjectsRest;
 import slender.webservice.rest.response.entities.CommentResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserResponse;
-import slender.webservice.services.projects.ProjectsService;
-import slender.webservice.services.projects.impl.ProjectsServiceImpl;
 
 /**
  *
