@@ -20,11 +20,11 @@
     </servlet-mapping>
     
     <filter>
-            <filter-name>CORSFilter</filter-name>
-            <filter-class>slender.webservice.rest.response.CORSFilter</filter-class>
+        <filter-name>CORSFilter</filter-name>
+        <filter-class>slender.webservice.rest.response.CORSFilter</filter-class>
     </filter>
     <filter-mapping>
-            <filter-name>CORSFilter</filter-name>
-            <url-pattern>/webresources/*</url-pattern>
+        <filter-name>CORSFilter</filter-name>
+        <url-pattern>/webresources/*</url-pattern>
     </filter-mapping>
 </web-app>

@@ -11,23 +11,17 @@ import com.slender.service.crud.UserCrud;
 import com.slender.service.crud.impl.UserCrudImpl;
 import java.util.List;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import slender.webservice.rest.accounts.UserAuthenticationRest;
 import slender.webservice.rest.response.ResponseFactory;
-import slender.webservice.rest.response.ResponseState;
-import slender.webservice.services.accounts.UserAuthenticationService;
-import slender.webservice.services.accounts.impl.UserAuthenticationServiceImpl;
 
 /**
  *
  * @author Heinrich
  */
-@Path("acounts/authentication")
+@Path("acounts")
 public class UserAuthenticationRestImpl implements UserAuthenticationRest {
 
     @POST
@@ -49,15 +43,6 @@ public class UserAuthenticationRestImpl implements UserAuthenticationRest {
             }
         }
 
-        return ResponseFactory.getResponseState(false, "User does not exist", "");
-    }
-
-    @Path("addUser")
-    @POST
-    @Override
-    public Response addUser(Users user) {
-        UserAuthenticationService service = new UserAuthenticationServiceImpl();
-        service.addUser(user);
         return ResponseFactory.getResponseState(false, "User does not exist", "");
     }
 }

@@ -24,5 +24,4 @@ import javax.xml.bind.JAXBElement;
 public interface UserAuthenticationRest {
 
     public Response authenticate(String username, String password);
-    public Response addUser(Users user);
 }   

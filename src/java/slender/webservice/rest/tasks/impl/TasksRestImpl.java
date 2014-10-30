@@ -6,22 +6,20 @@
 
 package slender.webservice.rest.tasks.impl;
 
-import com.google.common.collect.Lists;
+import com.slender.domain.Comment;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
-import slender.webservice.rest.projects.impl.ProjectsRestImpl;
+import slender.services.core.tasks.TasksService;
+import slender.services.core.tasks.impl.TasksServiceImpl;
+import slender.webservice.rest.response.entities.CommentResponse;
+import slender.webservice.rest.response.entities.TaskResponse;
+import slender.webservice.rest.response.entities.UserResponse;
 import slender.webservice.rest.tasks.TasksRest;
-import slender.webservice.rest.users.impl.UsersRestImpl;
-import slender.webservice.services.tasks.TasksService;
-import slender.webservice.services.tasks.impl.TasksServiceImpl;
 
 /**
  *
@@ -29,70 +27,55 @@ import slender.webservice.services.tasks.impl.TasksServiceImpl;
  */
 @Path("/tasks")
 public class TasksRestImpl implements TasksRest {
-    
+
     @POST
-    @Path("getTasksFromProject")
+    @Path("getTask")
     @Override
-    public Response getTasks(@FormParam("id") Integer projectId) {
-            TasksService service = new TasksServiceImpl();
-            List<Task> tasks = service.getTasks(projectId);
+    public Response getTask(@FormParam("id") Integer id) {
+        TasksService service = new TasksServiceImpl();
+        Task task = service.getTask(id);
+        int progress = service.getProgress(id);
         
-            List<TaskResponse> responses = new ArrayList<TaskResponse>();
-            int progress;
-            for(Task t : tasks) {
-                progress = service.getProgress(t.getId());
-                responses.add(new TaskResponse(t, progress));
-            }
-            
-            GenericEntity<List<TaskResponse>> entity = new GenericEntity<List<TaskResponse>>(Lists.newArrayList(responses)) {};
-            return Response.ok(entity).build();
+        return Response.ok(new TaskResponse(task, progress)).build();
     }
-    
-    @XmlRootElement
-    private class TaskResponse {
-        private int id;
-        private String name;
-        private String description;
-        private int progress;
 
-        public TaskResponse(Task task, int progress) {
-            id = task.getId();
-            name = task.getTaskName();
-            description = task.getTaskDesc();
-            this.progress = progress;
-        }
+    @Override
+    public Response getTaskAttachments(@FormParam("id") Integer taskId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @POST
+    @Path("getTaskComments")
+    @Override
+    public Response getTaskComments(@FormParam("id") Integer taskId) {
+        TasksService service = new TasksServiceImpl();
+        List<Comment> comments = service.getTaskComments(taskId);
         
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public int getProgress() {
-            return progress;
-        }
-
-        public void setProgress(int progress) {
-            this.progress = progress;
-        }
+        return Response.ok(CommentResponse.getResponseEntity(comments)).build();
     }
-    
+
+    @POST
+    @Path("getTaskUsers")
+    @Override
+    public Response getTaskUsers(@FormParam("id") Integer taskId) {
+        TasksService service = new TasksServiceImpl();
+        List<Users> users = service.getTaskUsers(taskId);
+        
+        return Response.ok(UserResponse.getResponseEntity(users)).build();
+    }
+
+    @POST
+    @Path("getProgress")
+    @Override
+    public Response getProgress(@FormParam("id") Integer taskId) {
+        TasksService service = new TasksServiceImpl();
+        int progress = service.getProgress(taskId);
+        
+        return Response.ok(progress).build();
+    }
+
+    @Override
+    public Response addProgress(@FormParam("id") Integer taskId, @FormParam("userId") Integer userId, @FormParam("hours") int hours) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

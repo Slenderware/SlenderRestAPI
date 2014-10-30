@@ -6,22 +6,21 @@
 
 package slender.webservice.rest.projects.impl;
 
-import com.google.common.collect.Lists;
+import com.slender.domain.Comment;
 import com.slender.domain.Project;
+import com.slender.domain.Task;
 import com.slender.domain.Users;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
+import slender.services.core.projects.ProjectsService;
+import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.webservice.rest.projects.ProjectsRest;
-import slender.webservice.rest.users.impl.UsersRestImpl;
-import slender.webservice.services.accounts.session.UserSessions;
-import slender.webservice.services.projects.ProjectsService;
-import slender.webservice.services.projects.impl.ProjectsServiceImpl;
+import slender.webservice.rest.response.entities.CommentResponse;
+import slender.webservice.rest.response.entities.TaskResponse;
+import slender.webservice.rest.response.entities.UserResponse;
 
 /**
  *
@@ -29,53 +28,55 @@ import slender.webservice.services.projects.impl.ProjectsServiceImpl;
  */
 @Path("/projects")
 public class ProjectsRestImpl implements ProjectsRest {
-    
+
     @POST
-    @Path("getProjects")
+    @Path("getProject")
     @Override
-    public Response getProjects(@FormParam("sessionId") String sessionId) {
-        Users user = UserSessions.getUser(sessionId);
+    public Response getProject(@FormParam("id") Integer projId) {
         ProjectsService service = new ProjectsServiceImpl();
         
-        List<Project> projects = service.getProjects(user.getId());
+        Project project = service.getProject(projId);
         
-        return Response.ok(getResponseEntity(projects)).build();
+        return Response.ok(project).build();
     }
-    
-    private GenericEntity<List<ProjectResponse>> getResponseEntity(List<Project> projects) {
-        List<ProjectResponse> responses = new ArrayList<ProjectResponse>();
+
+    @POST
+    @Path("getProjectUsers")
+    @Override
+    public Response getProjectUsers(@FormParam("id") Integer projId) {
+        ProjectsService service = new ProjectsServiceImpl();
+        List<Users> users = service.getProjectUsers(projId);
         
-        for(Project p : projects) {
-            responses.add(new ProjectResponse(p));
-        }
-        
-        return new GenericEntity<List<ProjectResponse>>(Lists.newArrayList(responses)) {};
+        return Response.ok(UserResponse.getResponseEntity(users)).build();
     }
-    
-    @XmlRootElement
-    private class ProjectResponse {
-        int id;
-        String name;
 
-        public ProjectResponse(Project project) {
-            this.id = project.getId();
-            this.name = project.getProjectName();
-        }
+    @POST
+    @Path("getProjectTasks")
+    @Override
+    public Response getProjectTasks(@FormParam("id") Integer projId) {
+        ProjectsService service = new ProjectsServiceImpl();
+        List<Task> tasks = service.getProjectTasks(projId);
+        
+        return Response.ok(TaskResponse.getResponseEntity(tasks)).build();
+    }
 
-        public int getId() {
-            return id;
-        }
+    @POST
+    @Path("getProjectComments")
+    @Override
+    public Response getProjectComments(@FormParam("id") Integer projId) {
+        ProjectsService service = new ProjectsServiceImpl();
+        List<Comment> comments = service.getProjectComments(projId);
+        
+        return Response.ok(CommentResponse.getResponseEntity(comments)).build();
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
+    @POST
+    @Path("getProjectProgress")
+    @Override
+    public Response getProjectProgress(@FormParam("id") Integer projId) {
+        ProjectsService service = new ProjectsServiceImpl();
+        int progress = service.getProjectProgress(projId);
+        
+        return Response.ok(progress).build();
     }
 }
