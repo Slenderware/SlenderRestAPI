@@ -15,7 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.webservice.rest.accounts.UserAuthenticationRest;
-import slender.webservice.rest.response.ResponseFactory;
+import slender.webservice.rest.response.entities.SessionResponse;
 
 /**
  *
@@ -35,14 +35,14 @@ public class UserAuthenticationRestImpl implements UserAuthenticationRest {
         for(Users u : users) {
             if(u.getUsername().equals(username)) {
                 if(u.getPassword().equals(password)) {
-                    return ResponseFactory.getResponseState(true, "Successfully authenticated", "sessionvariable1");
+                    return Response.ok(new SessionResponse(true, "Successfully authenticated", "sessionvariable1")).build();
                 }
                 else {
-                    return ResponseFactory.getResponseState(false, "Incorrect password", "");
+                    return Response.ok(new SessionResponse(false, "Incorrect password", "")).build();
                 }
             }
         }
 
-        return ResponseFactory.getResponseState(false, "User does not exist", "");
+        return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
     }
 }

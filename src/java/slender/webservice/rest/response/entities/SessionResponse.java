@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package slender.webservice.rest.response;
+package slender.webservice.rest.response.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -13,17 +13,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Heinrich
  */
 @XmlRootElement
-public class ResponseState {
+public class SessionResponse {
     private boolean success;
     private String message;
-    private Object data;
+    private String sessionId;
 
-    public ResponseState(boolean success, String message, Object data) {
+    public SessionResponse(boolean success, String message, String sessionId) {
         this.success = success;
-        this.data = data;
         this.message = message;
+        this.sessionId = sessionId;
     }
-
+    
     public boolean isSuccess() {
         return success;
     }
@@ -40,11 +40,11 @@ public class ResponseState {
         this.message = message;
     }
 
-    public Object getData() {
-        return data;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }
