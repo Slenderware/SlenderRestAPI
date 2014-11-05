@@ -14,6 +14,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import slender.services.core.accounts.UserAuthenticationService;
+import slender.services.core.accounts.impl.UserAuthenticationServiceImpl;
 import slender.webservice.rest.accounts.UserAuthenticationRest;
 import slender.webservice.rest.response.entities.SessionResponse;
 
@@ -28,21 +30,14 @@ public class UserAuthenticationRestImpl implements UserAuthenticationRest {
     @Path("authenticate")
     @Override
     public Response authenticate(@FormParam("username") String username, @FormParam("password") String password) {
-        UserCrud crud = new UserCrudImpl();
+        UserAuthenticationService service = new UserAuthenticationServiceImpl();
+        int response = service.authenticate(username, password);
         
-        List<Users> users = crud.findAll();
-        
-        for(Users u : users) {
-            if(u.getUsername().equals(username)) {
-                if(u.getPassword().equals(password)) {
-                    return Response.ok(new SessionResponse(true, "Successfully authenticated", "sessionvariable1")).build();
-                }
-                else {
-                    return Response.ok(new SessionResponse(false, "Incorrect password", "")).build();
-                }
-            }
-        }
+        if(response == 0)
+            return Response.ok(new SessionResponse(true, "Successfully authenticated", "sessionvariable1")).build();
+        else if(response == 2)
+            return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
 
-        return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
+        return Response.ok(new SessionResponse(false, "Incorrect password", "")).build();
     }
 }
