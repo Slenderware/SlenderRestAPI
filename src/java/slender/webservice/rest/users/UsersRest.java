@@ -6,10 +6,7 @@
 
 package slender.webservice.rest.users;
 
-import com.slender.domain.Project;
-import com.slender.domain.Task;
 import com.slender.domain.Users;
-import java.util.List;
 import javax.ws.rs.core.Response;
 
 /**
@@ -22,4 +19,5 @@ public interface UsersRest {
     public Response getUserTasks(String sessionId);
     public Response getTimeSpentForTask(String sessionId, Integer taskId);
     public Response getTimeSpentForProject(String sessionId, Integer projectId);
+    public Response addUser(Users user);
 }

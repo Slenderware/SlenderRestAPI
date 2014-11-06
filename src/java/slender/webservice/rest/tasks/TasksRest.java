@@ -6,11 +6,7 @@
 
 package slender.webservice.rest.tasks;
 
-import com.slender.domain.Comment;
 import com.slender.domain.Task;
-import com.slender.domain.Users;
-import java.io.File;
-import java.util.List;
 import javax.ws.rs.core.Response;
 
 /**
@@ -24,4 +20,5 @@ public interface TasksRest {
     public Response getTaskUsers(Integer taskId);
     public Response getProgress(Integer taskId);
     public Response addProgress(Integer taskId, Integer userId, int hours);
+    public Response addTask(Task task);
 }

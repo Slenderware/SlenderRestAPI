@@ -19,6 +19,7 @@ import slender.services.core.projects.ProjectsService;
 import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.webservice.rest.projects.ProjectsRest;
 import slender.webservice.rest.response.entities.CommentResponse;
+import slender.webservice.rest.response.entities.ProjectResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserResponse;
 
@@ -78,5 +79,14 @@ public class ProjectsRestImpl implements ProjectsRest {
         int progress = service.getProjectProgress(projId);
         
         return Response.ok(progress).build();
+    }
+
+    @POST
+    @Path("addProject")
+    @Override
+    public Response addProject(Project project) {
+        ProjectsService service = new ProjectsServiceImpl();
+        Project newProject = service.addProject(project);
+        return Response.ok(new ProjectResponse(newProject)).build();
     }
 }

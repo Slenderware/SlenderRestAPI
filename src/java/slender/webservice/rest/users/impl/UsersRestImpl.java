@@ -77,4 +77,14 @@ public class UsersRestImpl implements UsersRest {
         
         return Response.ok(time).build();
     }
+
+    @POST
+    @Path("addUser")
+    @Override
+    public Response addUser(Users user) {
+        UsersService service =  new UsersServiceImpl();
+        Users newUser = service.addUser(user);
+        
+        return Response.ok(new UserResponse(newUser)).build();
+    }
 }

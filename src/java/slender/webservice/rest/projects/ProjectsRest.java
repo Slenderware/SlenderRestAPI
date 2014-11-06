@@ -6,12 +6,7 @@
 
 package slender.webservice.rest.projects;
 
-import com.slender.domain.Comment;
 import com.slender.domain.Project;
-import com.slender.domain.Task;
-import com.slender.domain.Users;
-import java.util.List;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -24,4 +19,5 @@ public interface ProjectsRest {
     public Response getProjectTasks(Integer projId);
     public Response getProjectComments(Integer projId);
     public Response getProjectProgress(Integer projId);
+    public Response addProject(Project project);
 }

@@ -74,8 +74,25 @@ public class TasksRestImpl implements TasksRest {
         return Response.ok(progress).build();
     }
 
+    @POST
+    @Path("addProgress")
     @Override
     public Response addProgress(@FormParam("id") Integer taskId, @FormParam("userId") Integer userId, @FormParam("hours") int hours) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TasksService service = new TasksServiceImpl();
+        service.addProgress(taskId, userId, hours);
+        
+        return Response.ok("Success").build();
+    }
+
+    @POST
+    @Path("addTask")
+    @Override
+    public Response addTask(Task task) {
+        TasksService service = new TasksServiceImpl();
+        Task newTask = service.addTask(task);
+        
+        int progress = service.getProgress(newTask.getId());
+        
+        return Response.ok(new TaskResponse(newTask, progress)).build();
     }
 }

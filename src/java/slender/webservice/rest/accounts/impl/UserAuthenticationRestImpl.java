@@ -6,10 +6,6 @@
 
 package slender.webservice.rest.accounts.impl;
 
-import com.slender.domain.Users;
-import com.slender.service.crud.UserCrud;
-import com.slender.service.crud.impl.UserCrudImpl;
-import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
