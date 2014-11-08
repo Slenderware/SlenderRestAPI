@@ -88,8 +88,8 @@ public class UsersRestImpl implements UsersRest {
             @FormParam("username") String username, 
             @FormParam("email") String email,
             @FormParam("password") String password, 
-            @FormParam("roleId") int roleId, 
-            @FormParam("companyId ") int companyId) {
+            @FormParam("roleId") Integer roleId, 
+            @FormParam("companyId") Integer companyId) {
         
         UsersFactory fact = new UsersFactory();
         Users user = fact.getUsers(firstName, lastName, username, email, password, roleId, companyId);

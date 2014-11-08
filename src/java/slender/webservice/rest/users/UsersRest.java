@@ -20,5 +20,5 @@ public interface UsersRest {
     public Response getTimeSpentForTask(String sessionId, Integer taskId);
     public Response getTimeSpentForProject(String sessionId, Integer projectId);
     public Response addUser(String firstName, String lastName, String username, String email,
-            String password, int roleId, int companyId);
+            String password, Integer roleId, Integer companyId);
 }
