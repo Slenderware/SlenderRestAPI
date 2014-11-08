@@ -88,7 +88,7 @@ public class UsersRestImpl implements UsersRest {
             @FormParam("username") String username, 
             @FormParam("email") String email,
             @FormParam("password") String password, 
-            @FormParam("roleId ") int roleId, 
+            @FormParam("roleId") int roleId, 
             @FormParam("companyId ") int companyId) {
         
         UsersFactory fact = new UsersFactory();
