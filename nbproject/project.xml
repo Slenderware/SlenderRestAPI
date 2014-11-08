@@ -39,11 +39,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.slenderware-services-core.jar}</file>
+                    <file>${file.reference.SlenderwareDomain.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.SlenderwareDomain.jar}</file>
+                    <file>${file.reference.slenderware-services-core.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

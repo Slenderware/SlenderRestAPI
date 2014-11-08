@@ -7,11 +7,14 @@
 package slender.webservice.rest.response.entities;
 
 import com.slender.domain.Comment;
+import com.slender.domain.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.xml.bind.annotation.XmlRootElement;
+import slender.services.core.users.UsersService;
+import slender.services.core.users.impl.UsersServiceImpl;
 
 /**
  *
@@ -24,10 +27,11 @@ public class CommentResponse {
     public String username;
     private Date createDate;
 
-    public CommentResponse(Comment comment) {
+    public CommentResponse(Comment comment, String username) {
         this.id = comment.getId();
         this.comment = comment.getComment();
         this.createDate = comment.getCreateDate();
+        this.username = username;
     }
 
     public String getUsername() {
@@ -65,8 +69,11 @@ public class CommentResponse {
     public static GenericEntity<List<CommentResponse>> getResponseEntity(List<Comment> comments) {
         List<CommentResponse> responses = new ArrayList<CommentResponse>();
         
+        UsersService service = new UsersServiceImpl();
+        Users user;
         for(Comment c : comments) {
-            responses.add(new CommentResponse(c));
+            user = service.getUser(c.getUserId());
+            responses.add(new CommentResponse(c, user.getUsername()));
         }
         
         return new GenericEntity<List<CommentResponse>>(responses) {};
