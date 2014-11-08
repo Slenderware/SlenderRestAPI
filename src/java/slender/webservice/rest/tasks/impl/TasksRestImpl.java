@@ -6,9 +6,11 @@
 
 package slender.webservice.rest.tasks.impl;
 
+import com.slender.app.factory.TaskFactory;
 import com.slender.domain.Comment;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -87,7 +89,20 @@ public class TasksRestImpl implements TasksRest {
     @POST
     @Path("addTask")
     @Override
-    public Response addTask(Task task) {
+    public Response addTask(
+            @FormParam("projectId") int projectId, 
+            @FormParam("taskName") String taskName, 
+            @FormParam("taskDesc ") String taskDesc, 
+            @FormParam("plannedStartDate") Date plannedStartDate,
+            @FormParam("plannedEndDate") Date plannedEndDate, 
+            @FormParam("startDate") Date startDate, 
+            @FormParam("endDate") Date endDate, 
+            @FormParam("timeAllocation ") int timeAllocation,
+            @FormParam("priorityId ") int priorityId) {
+        
+        TaskFactory factory = new TaskFactory();
+        Task task = factory.getTask(projectId, taskName, taskDesc, plannedStartDate, plannedEndDate, startDate, endDate, timeAllocation, priorityId);
+        
         TasksService service = new TasksServiceImpl();
         Task newTask = service.addTask(task);
         

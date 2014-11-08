@@ -21,12 +21,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CommentResponse {
     private int id;
     private String comment;
+    public String username;
     private Date createDate;
 
     public CommentResponse(Comment comment) {
         this.id = comment.getId();
         this.comment = comment.getComment();
         this.createDate = comment.getCreateDate();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getId() {

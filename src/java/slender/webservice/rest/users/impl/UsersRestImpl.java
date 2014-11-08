@@ -6,6 +6,7 @@
 
 package slender.webservice.rest.users.impl;
 
+import com.slender.app.factory.UsersFactory;
 import com.slender.domain.Project;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
@@ -81,7 +82,18 @@ public class UsersRestImpl implements UsersRest {
     @POST
     @Path("addUser")
     @Override
-    public Response addUser(Users user) {
+    public Response addUser(
+            @FormParam("firstName") String firstName, 
+            @FormParam("lastName") String lastName, 
+            @FormParam("username") String username, 
+            @FormParam("email") String email,
+            @FormParam("password") String password, 
+            @FormParam("roleId ") int roleId, 
+            @FormParam("companyId ") int companyId) {
+        
+        UsersFactory fact = new UsersFactory();
+        Users user = fact.getUsers(firstName, lastName, username, email, password, roleId, companyId);
+        
         UsersService service =  new UsersServiceImpl();
         Users newUser = service.addUser(user);
         

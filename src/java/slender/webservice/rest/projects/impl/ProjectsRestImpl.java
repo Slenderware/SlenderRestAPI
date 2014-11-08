@@ -6,10 +6,12 @@
 
 package slender.webservice.rest.projects.impl;
 
+import com.slender.app.factory.ProjectFactory;
 import com.slender.domain.Comment;
 import com.slender.domain.Project;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
+import java.util.Date;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -84,7 +86,17 @@ public class ProjectsRestImpl implements ProjectsRest {
     @POST
     @Path("addProject")
     @Override
-    public Response addProject(Project project) {
+    public Response addProject(
+            @FormParam("projectCreator")int creator, 
+            @FormParam("projectManager")int manager, 
+            @FormParam("projectName")String name, 
+            @FormParam("projectDescription")String desc,
+            @FormParam("startDate")Date startDate, 
+            @FormParam("endDate")Date endDate) {
+        
+        ProjectFactory factory = new ProjectFactory();
+        Project project = factory.getProject(creator, manager, name, desc, startDate, endDate);
+        
         ProjectsService service = new ProjectsServiceImpl();
         Project newProject = service.addProject(project);
         return Response.ok(new ProjectResponse(newProject)).build();
