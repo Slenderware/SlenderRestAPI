@@ -9,6 +9,7 @@ package slender.webservice.rest.projects;
 import com.slender.domain.Project;
 import java.util.Date;
 import javax.ws.rs.core.Response;
+import slender.webservice.rest.request.entities.DateParam;
 
 /**
  *
@@ -20,6 +21,6 @@ public interface ProjectsRest {
     public Response getProjectTasks(Integer projId);
     public Response getProjectComments(Integer projId);
     public Response getProjectProgress(Integer projId);
-    public Response addProject(int creator, int manager, String name, String desc,
-            Date startDate, Date endDate);
+    public Response addProject(Integer creator, Integer manager, String name, String desc,
+            String startDate, String endDate);
 }

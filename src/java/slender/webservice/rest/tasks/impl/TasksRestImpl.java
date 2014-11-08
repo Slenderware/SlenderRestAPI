@@ -18,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.tasks.TasksService;
 import slender.services.core.tasks.impl.TasksServiceImpl;
+import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserResponse;
@@ -92,16 +93,16 @@ public class TasksRestImpl implements TasksRest {
     public Response addTask(
             @FormParam("projectId") int projectId, 
             @FormParam("taskName") String taskName, 
-            @FormParam("taskDesc ") String taskDesc, 
-            @FormParam("plannedStartDate") Date plannedStartDate,
-            @FormParam("plannedEndDate") Date plannedEndDate, 
-            @FormParam("startDate") Date startDate, 
-            @FormParam("endDate") Date endDate, 
-            @FormParam("timeAllocation ") int timeAllocation,
-            @FormParam("priorityId ") int priorityId) {
+            @FormParam("taskDesc") String taskDesc, 
+            @FormParam("plannedStartDate") String plannedStartDate,
+            @FormParam("plannedEndDate") String plannedEndDate, 
+            @FormParam("startDate") String startDate, 
+            @FormParam("endDate") String endDate, 
+            @FormParam("timeAllocation") int timeAllocation,
+            @FormParam("priorityId") int priorityId) {
         
         TaskFactory factory = new TaskFactory();
-        Task task = factory.getTask(projectId, taskName, taskDesc, plannedStartDate, plannedEndDate, startDate, endDate, timeAllocation, priorityId);
+        Task task = factory.getTask(projectId, taskName, taskDesc, DateParam.valueOf(plannedStartDate).getDate(), DateParam.valueOf(plannedEndDate).getDate(), DateParam.valueOf(startDate).getDate(), DateParam.valueOf(endDate).getDate(), timeAllocation, priorityId);
         
         TasksService service = new TasksServiceImpl();
         Task newTask = service.addTask(task);

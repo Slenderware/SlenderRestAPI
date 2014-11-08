@@ -11,7 +11,6 @@ import com.slender.domain.Comment;
 import com.slender.domain.Project;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
-import java.util.Date;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.Response;
 import slender.services.core.projects.ProjectsService;
 import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.webservice.rest.projects.ProjectsRest;
+import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
 import slender.webservice.rest.response.entities.ProjectResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
@@ -87,15 +87,15 @@ public class ProjectsRestImpl implements ProjectsRest {
     @Path("addProject")
     @Override
     public Response addProject(
-            @FormParam("projectCreator")int creator, 
-            @FormParam("projectManager")int manager, 
+            @FormParam("projectCreator")Integer creator, 
+            @FormParam("projectManager")Integer manager, 
             @FormParam("projectName")String name, 
             @FormParam("projectDescription")String desc,
-            @FormParam("startDate")Date startDate, 
-            @FormParam("endDate")Date endDate) {
+            @FormParam("startDate")String startDate, 
+            @FormParam("endDate")String endDate) {
         
         ProjectFactory factory = new ProjectFactory();
-        Project project = factory.getProject(creator, manager, name, desc, startDate, endDate);
+        Project project = factory.getProject(creator, manager, name, desc, DateParam.valueOf(startDate).getDate(), DateParam.valueOf(endDate).getDate());
         
         ProjectsService service = new ProjectsServiceImpl();
         Project newProject = service.addProject(project);

@@ -21,7 +21,7 @@ public interface TasksRest {
     public Response getTaskUsers(Integer taskId);
     public Response getProgress(Integer taskId);
     public Response addProgress(Integer taskId, Integer userId, int hours);
-    public Response addTask(int projectId, String taskName, String taskDesc, Date plannedStartDate,
-            Date plannedEndDate, Date startDate, Date endDate, int timeAllocation,
+    public Response addTask(int projectId, String taskName, String taskDesc, String plannedStartDate,
+            String plannedEndDate, String startDate, String endDate, int timeAllocation,
             int priorityId);
 }
