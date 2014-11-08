@@ -19,11 +19,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserResponse {
     private Integer id;
+    private Integer roleId;
+    private Integer companyId;
     private String username;
 
     public UserResponse(Users user) {
         this.id = user.getId();
         this.username = user.getUsername();
+        this.roleId = user.getRoleId();
+        this.companyId = user.getCompanyId();
     }
 
     public Integer getId() {
@@ -40,6 +44,22 @@ public class UserResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public static GenericEntity<List<UserResponse>> getResponseEntity(List<Users> entities) {

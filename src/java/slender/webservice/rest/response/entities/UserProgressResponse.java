@@ -20,33 +20,14 @@ import slender.services.core.users.impl.UsersServiceImpl;
  * @author Heinrich
  */
 @XmlRootElement
-public class UserProgressResponse {
-    private Integer id;
-    private String username;
+public class UserProgressResponse extends UserResponse {
     private int progress;
 
     public UserProgressResponse(Users user, int progress) {
-        this.id = user.getId();
-        this.username = user.getUsername();
+        super(user);
         this.progress = progress;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    
     public int getProgress() {
         return progress;
     }

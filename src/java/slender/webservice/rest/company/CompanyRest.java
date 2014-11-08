@@ -13,5 +13,5 @@ import javax.ws.rs.core.Response;
  * @author Heinrich
  */
 public interface CompanyRest {
-    public Response addCompany(String name, int adminUser);
+    public Response addCompany(String name);
 }

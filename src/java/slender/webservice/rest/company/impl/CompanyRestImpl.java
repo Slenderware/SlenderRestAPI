@@ -6,8 +6,8 @@
 
 package slender.webservice.rest.company.impl;
 
-import com.slender.app.factory.CompanyFactory;
 import com.slender.domain.Company;
+import java.util.Date;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,9 +27,11 @@ public class CompanyRestImpl implements CompanyRest {
     @POST
     @Path("addCompany")
     @Override
-    public Response addCompany(@FormParam("name") String name, @FormParam("adminUser")int adminUser) {
-        CompanyFactory fact = new CompanyFactory();
-        Company company = fact.getCompany(name, adminUser);
+    public Response addCompany(@FormParam("name") String name) {
+
+        Company company = new Company();
+        company.setCompanyName(name);
+        company.setCreateDate(new Date());
         
         CompanyService service = new CompanyServiceImpl();
         Company newComp = service.addCompany(company);
