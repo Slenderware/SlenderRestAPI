@@ -10,7 +10,6 @@ import com.slender.app.factory.TaskFactory;
 import com.slender.domain.Comment;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
-import java.util.Date;
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -21,7 +20,7 @@ import slender.services.core.tasks.impl.TasksServiceImpl;
 import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
-import slender.webservice.rest.response.entities.UserResponse;
+import slender.webservice.rest.response.entities.UserProgressResponse;
 import slender.webservice.rest.tasks.TasksRest;
 
 /**
@@ -64,7 +63,7 @@ public class TasksRestImpl implements TasksRest {
         TasksService service = new TasksServiceImpl();
         List<Users> users = service.getTaskUsers(taskId);
         
-        return Response.ok(UserResponse.getResponseEntity(users)).build();
+        return Response.ok(UserProgressResponse.getResponseEntity(users, taskId)).build();
     }
 
     @POST
