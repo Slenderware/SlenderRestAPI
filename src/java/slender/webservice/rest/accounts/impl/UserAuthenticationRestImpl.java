@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.accounts.UserAuthenticationService;
 import slender.services.core.accounts.impl.UserAuthenticationServiceImpl;
+import slender.services.core.accounts.session.UserSessions;
 import slender.webservice.rest.accounts.UserAuthenticationRest;
 import slender.webservice.rest.response.entities.SessionResponse;
 
@@ -29,8 +30,10 @@ public class UserAuthenticationRestImpl implements UserAuthenticationRest {
         UserAuthenticationService service = new UserAuthenticationServiceImpl();
         int response = service.authenticate(username, password);
         
-        if(response == 0)
-            return Response.ok(new SessionResponse(true, "Successfully authenticated", "sessionvariable1")).build();
+        if(response == 0) {
+            String sessionStr = UserSessions.getNewSessions(username);
+            return Response.ok(new SessionResponse(true, "Successfully authenticated", sessionStr)).build();
+        }
         else if(response == 2)
             return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
 
