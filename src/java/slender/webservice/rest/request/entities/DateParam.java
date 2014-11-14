@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Heinrich
  */
 public class DateParam implements Serializable {
-    static final DateFormat CRAZY_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    static final DateFormat CRAZY_FORMAT = new SimpleDateFormat("yyyy-dd-MM");
     
     public static DateParam valueOf(String dateString) {
         DateParam param = new DateParam();

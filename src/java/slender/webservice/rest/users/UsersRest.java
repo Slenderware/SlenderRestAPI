@@ -6,7 +6,6 @@
 
 package slender.webservice.rest.users;
 
-import com.slender.domain.Users;
 import javax.ws.rs.core.Response;
 
 /**
@@ -17,8 +16,13 @@ public interface UsersRest {
     public Response getUserBySession(String sessionId);
     public Response getUserProjects(String sessionId);
     public Response getUserTasks(String sessionId);
+    public Response getUserProjectTasks(String sessionId, Integer projectId);
     public Response getTimeSpentForTask(String sessionId, Integer taskId);
     public Response getTimeSpentForProject(String sessionId, Integer projectId);
     public Response addUser(String firstName, String lastName, String username, String email,
             String password, Integer roleId, Integer companyId);
+    public Response addAdminUser(String firstName, String lastName, String username, String email,
+            String password, Integer roleId, Integer companyId);
+    public Response addUserToProject(Integer userId, Integer projId);
+    public Response addUserToTask(Integer userId, Integer taskId);
 }

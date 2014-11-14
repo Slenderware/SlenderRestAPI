@@ -7,7 +7,6 @@
 package slender.webservice.rest.response.entities;
 
 import com.slender.domain.Company;
-import com.slender.domain.Project;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;

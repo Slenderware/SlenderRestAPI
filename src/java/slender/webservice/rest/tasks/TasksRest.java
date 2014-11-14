@@ -6,8 +6,6 @@
 
 package slender.webservice.rest.tasks;
 
-import com.slender.domain.Task;
-import java.util.Date;
 import javax.ws.rs.core.Response;
 
 /**
@@ -20,8 +18,8 @@ public interface TasksRest {
     public Response getTaskComments(Integer taskId);
     public Response getTaskUsers(Integer taskId);
     public Response getProgress(Integer taskId);
+    public Response getProgressPercentage(Integer taskId);
     public Response addProgress(Integer taskId, Integer userId, int hours);
     public Response addTask(int projectId, String taskName, String taskDesc, String plannedStartDate,
-            String plannedEndDate, String startDate, String endDate, int timeAllocation,
-            int priorityId);
+            String plannedEndDate, int timeAllocation, int priorityId);
 }

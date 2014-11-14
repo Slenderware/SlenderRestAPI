@@ -18,10 +18,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.projects.ProjectsService;
 import slender.services.core.projects.impl.ProjectsServiceImpl;
+import slender.services.core.users.UsersService;
+import slender.services.core.users.impl.UsersServiceImpl;
 import slender.webservice.rest.projects.ProjectsRest;
 import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
-import slender.webservice.rest.response.entities.ProjectResponse;
+import slender.webservice.rest.response.entities.SuccessResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserResponse;
 
@@ -97,8 +99,23 @@ public class ProjectsRestImpl implements ProjectsRest {
         ProjectFactory factory = new ProjectFactory();
         Project project = factory.getProject(creator, manager, name, desc, DateParam.valueOf(startDate).getDate(), DateParam.valueOf(endDate).getDate());
         
-        ProjectsService service = new ProjectsServiceImpl();
-        Project newProject = service.addProject(project);
-        return Response.ok(new ProjectResponse(newProject)).build();
+        try {
+            ProjectsService service = new ProjectsServiceImpl();
+            Project rtrn = service.addProject(project);
+
+            UsersService userService = new UsersServiceImpl();
+            userService.addUserToProject(creator, rtrn.getId());
+            return Response.ok(new SuccessResponse(true, "Successful")).build();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Response.ok(new SuccessResponse(false, "Failed")).build();
+    }
+
+    @Override
+    public Response addProjectComment(Integer userId, Integer projId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

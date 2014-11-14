@@ -19,6 +19,7 @@ import slender.services.core.tasks.TasksService;
 import slender.services.core.tasks.impl.TasksServiceImpl;
 import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
+import slender.webservice.rest.response.entities.SuccessResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserProgressResponse;
 import slender.webservice.rest.tasks.TasksRest;
@@ -94,20 +95,33 @@ public class TasksRestImpl implements TasksRest {
             @FormParam("taskName") String taskName, 
             @FormParam("taskDesc") String taskDesc, 
             @FormParam("plannedStartDate") String plannedStartDate,
-            @FormParam("plannedEndDate") String plannedEndDate, 
-            @FormParam("startDate") String startDate, 
-            @FormParam("endDate") String endDate, 
+            @FormParam("plannedEndDate") String plannedEndDate,
             @FormParam("timeAllocation") int timeAllocation,
             @FormParam("priorityId") int priorityId) {
         
         TaskFactory factory = new TaskFactory();
-        Task task = factory.getTask(projectId, taskName, taskDesc, DateParam.valueOf(plannedStartDate).getDate(), DateParam.valueOf(plannedEndDate).getDate(), DateParam.valueOf(startDate).getDate(), DateParam.valueOf(endDate).getDate(), timeAllocation, priorityId);
+        Task task = factory.getTask(projectId, taskName, taskDesc, DateParam.valueOf(plannedStartDate).getDate(), DateParam.valueOf(plannedEndDate).getDate(), null, null, timeAllocation, priorityId);
         
+        try {
+            TasksService service = new TasksServiceImpl();
+            service.addTask(task);
+            
+            return Response.ok(new SuccessResponse(false, "Failed")).build();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Response.ok(new SuccessResponse(false, "Failed")).build();
+    }
+
+    @POST
+    @Path("getProgressPercentage")
+    @Override
+    public Response getProgressPercentage(Integer taskId) {
         TasksService service = new TasksServiceImpl();
-        Task newTask = service.addTask(task);
+        double progress = service.getProgressPercentage(taskId);
         
-        int progress = service.getProgress(newTask.getId());
-        
-        return Response.ok(new TaskResponse(newTask, progress)).build();
+        return Response.ok(progress).build();    
     }
 }
