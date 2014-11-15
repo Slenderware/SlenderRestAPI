@@ -12,8 +12,8 @@ import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import slender.services.core.accounts.session.UserSessions;
-import slender.services.core.users.UsersService;
-import slender.services.core.users.impl.UsersServiceImpl;
+import slender.services.core.users.UsersProgressService;
+import slender.services.core.users.impl.UsersProgressServiceImpl;
 
 /**
  *
@@ -48,7 +48,7 @@ public class UserProgressResponse extends UserResponse {
 
     public static GenericEntity<List<UserProgressResponse>> getResponseEntity(List<Users> entities, Integer taskId) {
         List<UserProgressResponse> responses = new ArrayList<UserProgressResponse>();
-        UsersService service = new UsersServiceImpl();
+        UsersProgressService service = new UsersProgressServiceImpl();
         
         String sessionStr;
         int progressHours;

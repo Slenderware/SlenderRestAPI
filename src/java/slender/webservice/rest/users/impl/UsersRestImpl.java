@@ -17,7 +17,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.accounts.session.UserSessions;
+import slender.services.core.users.UserListsService;
+import slender.services.core.users.UsersProgressService;
 import slender.services.core.users.UsersService;
+import slender.services.core.users.impl.UserListsServiceImpl;
+import slender.services.core.users.impl.UsersProgressServiceImpl;
 import slender.services.core.users.impl.UsersServiceImpl;
 import slender.webservice.rest.response.entities.ProjectResponse;
 import slender.webservice.rest.response.entities.SessionResponse;
@@ -47,7 +51,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getUserProjects")
     @Override
     public Response getUserProjects(@FormParam("sessionId") String sessionId) {
-        UsersService service = new UsersServiceImpl();
+        UserListsService service = new UserListsServiceImpl();
         List<Project> projects = service.getUserProjects(sessionId);
         
         return Response.ok(ProjectResponse.getResponseEntity(projects)).build();
@@ -57,7 +61,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getUserTasks")
     @Override
     public Response getUserTasks(@FormParam("sessionId") String sessionId) {
-        UsersService service = new UsersServiceImpl();
+        UserListsService service = new UserListsServiceImpl();
         List<Task> tasks = service.getUserTasks(sessionId);
         
         return Response.ok(TaskResponse.getResponseEntity(tasks)).build();
@@ -67,7 +71,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getUserProjectTasks")
     @Override
     public Response getUserProjectTasks(@FormParam("sessionId") String sessionId, @FormParam("projectId") Integer projectId) {
-        UsersService service = new UsersServiceImpl();
+        UserListsService service = new UserListsServiceImpl();
         List<Task> tasks = service.getUserProjectTasks(sessionId, projectId);
         
         return Response.ok(TaskResponse.getResponseEntity(tasks)).build();
@@ -77,7 +81,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getTimeSpentForTask")
     @Override
     public Response getTimeSpentForTask(@FormParam("sessionId") String sessionId, @FormParam("taskId") Integer taskId) {
-        UsersService service = new UsersServiceImpl();
+        UsersProgressService service = new UsersProgressServiceImpl();
         int time = service.getTimeSpentForTask(sessionId, taskId);
         
         return Response.ok(time).build();
@@ -87,7 +91,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getTimeSpentForProject")
     @Override
     public Response getTimeSpentForProject(@FormParam("sessionId") String sessionId, @FormParam("projectId") Integer projectId) {
-        UsersService service = new UsersServiceImpl();
+        UsersProgressService service = new UsersProgressServiceImpl();
         int time = service.getTimeSpentForProject(sessionId, projectId);
         
         return Response.ok(time).build();
@@ -169,7 +173,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getPercentageSpentForTask")
     @Override
     public Response getPercentageSpentForTask(@FormParam("sessionId") String sessionId, @FormParam("taskId") Integer taskId) {
-        UsersService service = new UsersServiceImpl();
+        UsersProgressService service = new UsersProgressServiceImpl();
         double time = service.getPercentageSpentForTask(sessionId, taskId);
         
         return Response.ok(time).build();    }
@@ -178,7 +182,7 @@ public class UsersRestImpl implements UsersRest {
     @Path("getPercentageSpentForProject")
     @Override
     public Response getPercentageSpentForProject(@FormParam("sessionId") String sessionId, @FormParam("projectId") Integer projectId) {
-        UsersService service = new UsersServiceImpl();
+        UsersProgressService service = new UsersProgressServiceImpl();
         double time = service.getPercentageSpentForProject(sessionId, projectId);
         
         return Response.ok(time).build();

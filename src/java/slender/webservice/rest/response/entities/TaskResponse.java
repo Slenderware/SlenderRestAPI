@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.GenericEntity;
 import javax.xml.bind.annotation.XmlRootElement;
-import slender.services.core.tasks.TasksService;
-import slender.services.core.tasks.impl.TasksServiceImpl;
+import slender.services.core.tasks.TasksProgressService;
+import slender.services.core.tasks.impl.TasksProgressServiceImpl;
 
 /**
  *
@@ -75,7 +75,7 @@ public class TaskResponse {
     }
 
     public static GenericEntity<List<TaskResponse>> getResponseEntity(List<Task> entities) {
-        TasksService service = new TasksServiceImpl();
+        TasksProgressService service = new TasksProgressServiceImpl();
         
         List<TaskResponse> responses = new ArrayList<TaskResponse>();
         int progress;

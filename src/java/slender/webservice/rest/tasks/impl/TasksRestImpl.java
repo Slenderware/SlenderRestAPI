@@ -18,7 +18,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.comments.CommentsService;
 import slender.services.core.comments.impl.CommentsServiceImpl;
+import slender.services.core.tasks.TaskListsService;
+import slender.services.core.tasks.TasksProgressService;
 import slender.services.core.tasks.TasksService;
+import slender.services.core.tasks.impl.TaskListsServiceImpl;
+import slender.services.core.tasks.impl.TasksProgressServiceImpl;
 import slender.services.core.tasks.impl.TasksServiceImpl;
 import slender.webservice.rest.request.entities.DateParam;
 import slender.webservice.rest.response.entities.CommentResponse;
@@ -39,8 +43,9 @@ public class TasksRestImpl implements TasksRest {
     @Override
     public Response getTask(@FormParam("id") Integer id) {
         TasksService service = new TasksServiceImpl();
+        TasksProgressService progressService = new TasksProgressServiceImpl();
         Task task = service.getTask(id);
-        int progress = service.getProgress(id);
+        int progress = progressService.getProgress(id);
         
         return Response.ok(new TaskResponse(task, progress)).build();
     }
@@ -54,7 +59,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("getTaskComments")
     @Override
     public Response getTaskComments(@FormParam("id") Integer taskId) {
-        TasksService service = new TasksServiceImpl();
+        TaskListsService service = new TaskListsServiceImpl();
         List<Comment> comments = service.getTaskComments(taskId);
         
         return Response.ok(CommentResponse.getResponseEntity(comments)).build();
@@ -64,7 +69,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("getTaskUsers")
     @Override
     public Response getTaskUsers(@FormParam("id") Integer taskId) {
-        TasksService service = new TasksServiceImpl();
+        TaskListsService service = new TaskListsServiceImpl();
         List<Users> users = service.getTaskUsers(taskId);
         
         return Response.ok(UserProgressResponse.getResponseEntity(users, taskId)).build();
@@ -74,7 +79,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("getProgress")
     @Override
     public Response getProgress(@FormParam("id") Integer taskId) {
-        TasksService service = new TasksServiceImpl();
+        TasksProgressService service = new TasksProgressServiceImpl();
         int progress = service.getProgress(taskId);
         
         return Response.ok(progress).build();
@@ -84,7 +89,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("addProgress")
     @Override
     public Response addProgress(@FormParam("id") Integer taskId, @FormParam("userId") Integer userId, @FormParam("hours") int hours) {
-        TasksService service = new TasksServiceImpl();
+        TasksProgressService service = new TasksProgressServiceImpl();
         service.addProgress(taskId, userId, hours);
         
         return Response.ok(new SuccessResponse(true, "Successfully allocated time for task")).build();
@@ -122,7 +127,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("getProgressPercentage")
     @Override
     public Response getProgressPercentage(@FormParam("id") Integer taskId) {
-        TasksService service = new TasksServiceImpl();
+        TasksProgressService service = new TasksProgressServiceImpl();
         double progress = service.getProgressPercentage(taskId);
         
         return Response.ok(progress).build();    
@@ -158,7 +163,7 @@ public class TasksRestImpl implements TasksRest {
     @Path("markAsComplete")
     @Override
     public Response markAsComplete(@FormParam("id") Integer taskId) {
-        TasksService service = new TasksServiceImpl();
+        TasksProgressService service = new TasksProgressServiceImpl();
         boolean rtrn = service.markAsComplete(taskId);
         
         if(rtrn) {

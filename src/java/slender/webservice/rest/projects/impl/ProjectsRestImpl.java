@@ -19,7 +19,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import slender.services.core.comments.CommentsService;
 import slender.services.core.comments.impl.CommentsServiceImpl;
+import slender.services.core.projects.ProjectListsService;
+import slender.services.core.projects.ProjectsProgressService;
 import slender.services.core.projects.ProjectsService;
+import slender.services.core.projects.impl.ProjectListsServiceImpl;
+import slender.services.core.projects.impl.ProjectsProgressServiceImpl;
 import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.services.core.users.UsersService;
 import slender.services.core.users.impl.UsersServiceImpl;
@@ -52,7 +56,7 @@ public class ProjectsRestImpl implements ProjectsRest {
     @Path("getProjectUsers")
     @Override
     public Response getProjectUsers(@FormParam("id") Integer projId) {
-        ProjectsService service = new ProjectsServiceImpl();
+        ProjectListsService service = new ProjectListsServiceImpl();
         List<Users> users = service.getProjectUsers(projId);
         
         return Response.ok(UserResponse.getResponseEntity(users)).build();
@@ -62,7 +66,7 @@ public class ProjectsRestImpl implements ProjectsRest {
     @Path("getProjectTasks")
     @Override
     public Response getProjectTasks(@FormParam("id") Integer projId) {
-        ProjectsService service = new ProjectsServiceImpl();
+        ProjectListsService service = new ProjectListsServiceImpl();
         List<Task> tasks = service.getProjectTasks(projId);
         
         return Response.ok(TaskResponse.getResponseEntity(tasks)).build();
@@ -72,7 +76,7 @@ public class ProjectsRestImpl implements ProjectsRest {
     @Path("getProjectComments")
     @Override
     public Response getProjectComments(@FormParam("id") Integer projId) {
-        ProjectsService service = new ProjectsServiceImpl();
+        ProjectListsService service = new ProjectListsServiceImpl();
         List<Comment> comments = service.getProjectComments(projId);
         
         return Response.ok(CommentResponse.getResponseEntity(comments)).build();
@@ -82,7 +86,7 @@ public class ProjectsRestImpl implements ProjectsRest {
     @Path("getProjectProgress")
     @Override
     public Response getProjectProgress(@FormParam("id") Integer projId) {
-        ProjectsService service = new ProjectsServiceImpl();
+        ProjectsProgressService service = new ProjectsProgressServiceImpl();
         int progress = service.getProjectProgress(projId);
         
         return Response.ok(progress).build();
