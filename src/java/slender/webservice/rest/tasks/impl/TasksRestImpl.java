@@ -133,15 +133,15 @@ public class TasksRestImpl implements TasksRest {
     @Override
     public Response addTaskComment(
             @FormParam("userId") Integer userId,
-            @FormParam("projectId") Integer projId,
+            @FormParam("taskId") Integer taskId,
             @FormParam("comment") String comment) {
         
         try {
             CommentFactory factory = new CommentFactory();
             CommentsService service = new CommentsServiceImpl();
 
-            Comment com = factory.getComment(comment, projId, 0, userId);
-            com.setTaskId(null);
+            Comment com = factory.getComment(comment, 0, taskId, userId);
+            com.setProjectId(null);
         
             service.addComment(com);
             
