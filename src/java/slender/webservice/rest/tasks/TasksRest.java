@@ -20,6 +20,7 @@ public interface TasksRest {
     public Response getProgress(Integer taskId);
     public Response getProgressPercentage(Integer taskId);
     public Response addProgress(Integer taskId, Integer userId, int hours);
+    public Response markAsComplete(Integer taskId);
     public Response addTaskComment(
             Integer userId,
             Integer projId,

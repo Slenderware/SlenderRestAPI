@@ -153,4 +153,18 @@ public class TasksRestImpl implements TasksRest {
         
         return Response.ok(new SuccessResponse(false, "Failed")).build();
     }
+
+    @POST
+    @Path("addTaskComment")
+    @Override
+    public Response markAsComplete(@FormParam("id") Integer taskId) {
+        TasksService service = new TasksServiceImpl();
+        boolean rtrn = service.markAsComplete(taskId);
+        
+        if(rtrn) {
+             return Response.ok(new SuccessResponse(true, "Success")).build();
+        }
+        
+        return Response.ok(new SuccessResponse(false, "Failed")).build();
+    }
 }
