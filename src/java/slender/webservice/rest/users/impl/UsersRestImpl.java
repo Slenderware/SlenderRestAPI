@@ -16,9 +16,11 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import slender.services.core.accounts.session.UserSessions;
 import slender.services.core.users.UsersService;
 import slender.services.core.users.impl.UsersServiceImpl;
 import slender.webservice.rest.response.entities.ProjectResponse;
+import slender.webservice.rest.response.entities.SessionResponse;
 import slender.webservice.rest.response.entities.SuccessResponse;
 import slender.webservice.rest.response.entities.TaskResponse;
 import slender.webservice.rest.response.entities.UserResponse;
@@ -132,7 +134,9 @@ public class UsersRestImpl implements UsersRest {
         UsersService service =  new UsersServiceImpl();
         Users newUser = service.addAdminUser(user);
         
-        return Response.ok(new UserResponse(newUser)).build();
+        String sessionId = UserSessions.getNewSessions(newUser.getUsername());
+        
+        return Response.ok(new SessionResponse(true, "Success", sessionId)).build();
     }
     
     @POST
