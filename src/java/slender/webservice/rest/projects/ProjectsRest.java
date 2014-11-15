@@ -18,7 +18,15 @@ public interface ProjectsRest {
     public Response getProjectTasks(Integer projId);
     public Response getProjectComments(Integer projId);
     public Response getProjectProgress(Integer projId);
-    public Response addProjectComment(Integer userId, Integer projId);
-    public Response addProject(Integer creator, Integer manager, String name, String desc,
-            String startDate, String endDate);
+    public Response addProjectComment(
+            Integer userId,
+            Integer projId,
+            String comment);
+    public Response addProject(
+            Integer creator, 
+            Integer manager, 
+            String name, 
+            String desc,
+            String startDate, 
+            String endDate);
 }

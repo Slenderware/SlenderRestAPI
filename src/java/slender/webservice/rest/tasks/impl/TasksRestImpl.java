@@ -6,6 +6,7 @@
 
 package slender.webservice.rest.tasks.impl;
 
+import com.slender.app.factory.CommentFactory;
 import com.slender.app.factory.TaskFactory;
 import com.slender.domain.Comment;
 import com.slender.domain.Task;
@@ -15,6 +16,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import slender.services.core.comments.CommentsService;
+import slender.services.core.comments.impl.CommentsServiceImpl;
 import slender.services.core.tasks.TasksService;
 import slender.services.core.tasks.impl.TasksServiceImpl;
 import slender.webservice.rest.request.entities.DateParam;
@@ -106,7 +109,7 @@ public class TasksRestImpl implements TasksRest {
             TasksService service = new TasksServiceImpl();
             service.addTask(task);
             
-            return Response.ok(new SuccessResponse(false, "Failed")).build();
+            return Response.ok(new SuccessResponse(true, "Success")).build();
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -118,10 +121,36 @@ public class TasksRestImpl implements TasksRest {
     @POST
     @Path("getProgressPercentage")
     @Override
-    public Response getProgressPercentage(Integer taskId) {
+    public Response getProgressPercentage(@FormParam("id") Integer taskId) {
         TasksService service = new TasksServiceImpl();
         double progress = service.getProgressPercentage(taskId);
         
         return Response.ok(progress).build();    
+    }
+
+    @POST
+    @Path("addTaskComment")
+    @Override
+    public Response addTaskComment(
+            @FormParam("userId") Integer userId,
+            @FormParam("projectId") Integer projId,
+            @FormParam("comment") String comment) {
+        
+        try {
+            CommentFactory factory = new CommentFactory();
+            CommentsService service = new CommentsServiceImpl();
+
+            Comment com = factory.getComment(comment, projId, 0, userId);
+            com.setTaskId(null);
+        
+            service.addComment(com);
+            
+            return Response.ok(new SuccessResponse(true, "Success")).build();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Response.ok(new SuccessResponse(false, "Failed")).build();
     }
 }

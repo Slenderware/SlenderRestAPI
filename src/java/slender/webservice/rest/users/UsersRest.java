@@ -19,6 +19,8 @@ public interface UsersRest {
     public Response getUserProjectTasks(String sessionId, Integer projectId);
     public Response getTimeSpentForTask(String sessionId, Integer taskId);
     public Response getTimeSpentForProject(String sessionId, Integer projectId);
+    public Response getPercentageSpentForTask(String sessionId, Integer taskId);
+    public Response getPercentageSpentForProject(String sessionId, Integer projectId);
     public Response addUser(String firstName, String lastName, String username, String email,
             String password, Integer roleId, Integer companyId);
     public Response addAdminUser(String firstName, String lastName, String username, String email,

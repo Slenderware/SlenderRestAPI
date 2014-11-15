@@ -24,12 +24,14 @@ public class TaskResponse {
     private String name;
     private String description;
     private int progress;
+    private int priority;
 
     public TaskResponse(Task task, int progress) {
         id = task.getId();
         name = task.getTaskName();
         description = task.getTaskDesc();
         this.progress = progress;
+        this.priority = task.getPriorityId();
     }
 
     public int getId() {
@@ -62,6 +64,14 @@ public class TaskResponse {
 
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public static GenericEntity<List<TaskResponse>> getResponseEntity(List<Task> entities) {

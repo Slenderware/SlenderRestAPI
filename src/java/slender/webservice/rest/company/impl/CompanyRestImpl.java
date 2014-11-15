@@ -7,7 +7,9 @@
 package slender.webservice.rest.company.impl;
 
 import com.slender.domain.Company;
+import com.slender.domain.Users;
 import java.util.Date;
+import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,6 +18,7 @@ import slender.services.core.company.CompanyService;
 import slender.services.core.company.impl.CompanyServiceImpl;
 import slender.webservice.rest.company.CompanyRest;
 import slender.webservice.rest.response.entities.CompanyResponse;
+import slender.webservice.rest.response.entities.UserResponse;
 
 /**
  *
@@ -37,6 +40,16 @@ public class CompanyRestImpl implements CompanyRest {
         Company newComp = service.addCompany(company);
         
         return Response.ok(new CompanyResponse(newComp)).build();
+    }
+
+    @POST
+    @Path("getCompanyUsers")
+    @Override
+    public Response getCompanyUsers(@FormParam("id") Integer companyId) {
+        CompanyService service = new CompanyServiceImpl();
+        List<Users> users = service.getCompanyUsers(companyId);
+        
+        return Response.ok(UserResponse.getResponseEntity(users)).build();
     }
     
 }

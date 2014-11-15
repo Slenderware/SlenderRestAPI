@@ -14,4 +14,5 @@ import javax.ws.rs.core.Response;
  */
 public interface CompanyRest {
     public Response addCompany(String name);
+    public Response getCompanyUsers(Integer companyId);
 }

@@ -136,9 +136,9 @@ public class UsersRestImpl implements UsersRest {
     }
     
     @POST
-    @Path("addUserToProject")
+    @Path("assignUserToProject")
     @Override
-     public Response addUserToProject(Integer userId, Integer projId) {
+     public Response addUserToProject(@FormParam("userId") Integer userId, @FormParam("projectId") Integer projId) {
          UsersService service =  new UsersServiceImpl();
          boolean rtrn = service.addUserToProject(userId, projId);
          
@@ -149,9 +149,9 @@ public class UsersRestImpl implements UsersRest {
      }
 
     @POST
-    @Path("addUserToTask")
+    @Path("assignUserToTask")
     @Override
-    public Response addUserToTask(Integer userId, Integer taskId) {
+    public Response addUserToTask(@FormParam("userId") Integer userId, @FormParam("taskId") Integer taskId) {
         UsersService service =  new UsersServiceImpl();
          boolean rtrn = service.addUserToTask(userId, taskId);
          
@@ -159,5 +159,24 @@ public class UsersRestImpl implements UsersRest {
             return Response.ok(new SuccessResponse(true, "Successfull")).build();
          
          return Response.ok(new SuccessResponse(false, "User does not exist")).build();
+    }
+
+    @POST
+    @Path("getPercentageSpentForTask")
+    @Override
+    public Response getPercentageSpentForTask(@FormParam("sessionId") String sessionId, @FormParam("taskId") Integer taskId) {
+        UsersService service = new UsersServiceImpl();
+        double time = service.getPercentageSpentForTask(sessionId, taskId);
+        
+        return Response.ok(time).build();    }
+
+    @POST
+    @Path("getPercentageSpentForProject")
+    @Override
+    public Response getPercentageSpentForProject(@FormParam("sessionId") String sessionId, @FormParam("projectId") Integer projectId) {
+        UsersService service = new UsersServiceImpl();
+        double time = service.getPercentageSpentForProject(sessionId, projectId);
+        
+        return Response.ok(time).build();
     }
 }

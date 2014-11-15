@@ -21,31 +21,43 @@ import slender.services.core.users.impl.UsersServiceImpl;
  */
 @XmlRootElement
 public class UserProgressResponse extends UserResponse {
-    private int progress;
+    private int progressHours;
+    private double progressPercentage;
 
-    public UserProgressResponse(Users user, int progress) {
+    public UserProgressResponse(int progressHours, double progressPercentage, Users user) {
         super(user);
-        this.progress = progress;
-    }
-    
-    public int getProgress() {
-        return progress;
+        this.progressHours = progressHours;
+        this.progressPercentage = progressPercentage;
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
+    public int getProgressHours() {
+        return progressHours;
+    }
+
+    public void setProgressHours(int progressHours) {
+        this.progressHours = progressHours;
+    }
+
+    public double getProgressPercentage() {
+        return progressPercentage;
+    }
+
+    public void setProgressPercentage(double progressPercentage) {
+        this.progressPercentage = progressPercentage;
     }
 
     public static GenericEntity<List<UserProgressResponse>> getResponseEntity(List<Users> entities, Integer taskId) {
         List<UserProgressResponse> responses = new ArrayList<UserProgressResponse>();
         UsersService service = new UsersServiceImpl();
-        String sessionStr;
-        int progress;
         
+        String sessionStr;
+        int progressHours;
+        double progressPerc;
         for(Users e : entities) {
             sessionStr = UserSessions.getNewSessions(e.getUsername());
-            progress = service.getTimeSpentForTask(sessionStr, taskId);
-            responses.add(new UserProgressResponse(e, progress));
+            progressHours = service.getTimeSpentForTask(sessionStr, taskId);
+            progressPerc = service.getPercentageSpentForTask(sessionStr, taskId);
+            responses.add(new UserProgressResponse(progressHours, progressPerc, e));
         }
 
         return new GenericEntity<List<UserProgressResponse>>(responses) {};

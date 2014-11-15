@@ -6,6 +6,7 @@
 
 package slender.webservice.rest.projects.impl;
 
+import com.slender.app.factory.CommentFactory;
 import com.slender.app.factory.ProjectFactory;
 import com.slender.domain.Comment;
 import com.slender.domain.Project;
@@ -16,6 +17,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+import slender.services.core.comments.CommentsService;
+import slender.services.core.comments.impl.CommentsServiceImpl;
 import slender.services.core.projects.ProjectsService;
 import slender.services.core.projects.impl.ProjectsServiceImpl;
 import slender.services.core.users.UsersService;
@@ -114,8 +117,29 @@ public class ProjectsRestImpl implements ProjectsRest {
         return Response.ok(new SuccessResponse(false, "Failed")).build();
     }
 
+    @POST
+    @Path("addProjectComment")
     @Override
-    public Response addProjectComment(Integer userId, Integer projId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Response addProjectComment(
+            @FormParam("userId") Integer userId,
+            @FormParam("projectId") Integer projId,
+            @FormParam("comment") String comment) {
+        
+        try {
+            CommentFactory factory = new CommentFactory();
+            CommentsService service = new CommentsServiceImpl();
+
+            Comment com = factory.getComment(comment, projId, 0, userId);
+            com.setTaskId(null);
+        
+            service.addComment(com);
+            
+            return Response.ok(new SuccessResponse(true, "Success")).build();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return Response.ok(new SuccessResponse(false, "Failed")).build();
     }
 }
