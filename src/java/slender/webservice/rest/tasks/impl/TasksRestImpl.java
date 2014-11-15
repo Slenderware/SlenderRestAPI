@@ -155,7 +155,7 @@ public class TasksRestImpl implements TasksRest {
     }
 
     @POST
-    @Path("addTaskComment")
+    @Path("markAsComplete")
     @Override
     public Response markAsComplete(@FormParam("id") Integer taskId) {
         TasksService service = new TasksServiceImpl();
