@@ -87,7 +87,7 @@ public class TasksRestImpl implements TasksRest {
         TasksService service = new TasksServiceImpl();
         service.addProgress(taskId, userId, hours);
         
-        return Response.ok("Success").build();
+        return Response.ok(new SuccessResponse(true, "Successfully allocated time for task")).build();
     }
 
     @POST
