@@ -11,7 +11,6 @@ import com.slender.domain.Project;
 import com.slender.domain.Session;
 import com.slender.domain.Task;
 import com.slender.domain.Users;
-import com.slender.service.crud.SessionCrud;
 import com.slender.service.crud.impl.SessionCrudImpl;
 import java.util.List;
 import org.testng.Assert;
@@ -66,6 +65,7 @@ public class UsersServiceTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         session = "coresessiontest";
+        TestVal.sessionId = session;
         SessionCrudImpl crud = new SessionCrudImpl();
         SessionFactory fact = new SessionFactory();
         

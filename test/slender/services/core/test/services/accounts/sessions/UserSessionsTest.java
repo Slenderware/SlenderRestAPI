@@ -35,13 +35,6 @@ public class UserSessionsTest {
         
         Assert.assertEquals(user.getFirstName(), TestVal.fString + "1", "UserSessions.getUser");
     }
-    
-    @Test
-    public void testGetUser() {
-        Users user = UserSessions.getUser("session0");;
-        
-        Assert.assertEquals(user.getUsername(), "dummy");
-    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {

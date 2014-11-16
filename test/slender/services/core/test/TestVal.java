@@ -22,4 +22,5 @@ public class TestVal {
     public static Integer projectID = null;
     public static Integer taskID = null;
     public static Integer commentID = null;
+    public static String sessionId = null;
 }
