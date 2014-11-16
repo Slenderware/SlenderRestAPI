@@ -56,8 +56,8 @@ public class UserAuthenticationRestImpl implements UserAuthenticationRest {
             return Response.ok(new SessionResponse(true, "Successfully authenticated", sessionStr)).build();
         }
         else if(response == 2)
-            return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
+            return Response.ok(new SessionResponse(false, "Incorrect password", "")).build();
 
-        return Response.ok(new SessionResponse(false, "Incorrect password", "")).build();
+        return Response.ok(new SessionResponse(false, "User does not exist", "")).build();
     }
 }
