@@ -70,14 +70,12 @@ public class UserProgressResponse extends UserResponse {
     public static GenericEntity<List<UserProgressResponse>> getResponseEntity(List<Users> entities, Integer taskId) {
         List<UserProgressResponse> responses = new ArrayList<UserProgressResponse>();
         UsersProgressService service = new UsersProgressServiceImpl();
-        
-        String sessionStr;
+
         int progressHours;
         double progressPerc;
         for(Users e : entities) {
-            sessionStr = UserSessions.getNewSessions(e.getUsername());
-            progressHours = service.getTimeSpentForTask(sessionStr, taskId);
-            progressPerc = service.getPercentageSpentForTask(sessionStr, taskId);
+            progressHours = service.getTimeSpentForTask(e.getId(), taskId);
+            progressPerc = service.getPercentageSpentForTask(e.getId(), taskId);
             responses.add(new UserProgressResponse(progressHours, progressPerc, e));
         }
 

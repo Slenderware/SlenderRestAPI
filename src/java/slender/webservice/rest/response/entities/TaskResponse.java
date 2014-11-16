@@ -46,6 +46,7 @@ public class TaskResponse {
     private String description;
     private int progress;
     private int priority;
+    private int statusId;
 
     public TaskResponse(Task task, int progress) {
         id = task.getId();
@@ -53,6 +54,7 @@ public class TaskResponse {
         description = task.getTaskDesc();
         this.progress = progress;
         this.priority = task.getPriorityId();
+        this.statusId = task.getStatusId();
     }
 
     public int getId() {
@@ -77,6 +79,14 @@ public class TaskResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public int getProgress() {

@@ -18,8 +18,8 @@
     </test>
     -->
     
-    <test name="slender.services.core.test suite">
-        <packages>
+    <test name="slender.services.core.test suite"  preserve-order="true"> 
+        <packages preserve-order="true">
             <package name="slender.services.core.test.setup.*"/>
             <package name="slender.services.core.test.services.*"/>
         </packages>

@@ -6,7 +6,6 @@
 
 package slender.services.core.test.services.accounts;
 
-import javax.ws.rs.core.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
