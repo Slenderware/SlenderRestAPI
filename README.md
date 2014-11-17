@@ -4,7 +4,7 @@ SlenderRestAPI
 This module contains the REST API for Slenderware project management website.
 
 Instructions can be found on wiki: https://github.com/Slenderware/SlenderRestAPI/wiki
-The API Guide and Documentation can be found at: {link}
+The API Guide and Documentation can be found at: http://www.slenderware.co.za/documentation/Slender-Services-Guide.pdf
 
 Version: 1.35
 Date: 11/16/2014
